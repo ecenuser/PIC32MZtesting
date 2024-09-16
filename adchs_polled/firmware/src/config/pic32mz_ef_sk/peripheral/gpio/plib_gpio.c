@@ -62,13 +62,12 @@ void GPIO_Initialize ( void )
 
     /* PORTA Initialization */
     /* PORTB Initialization */
-    ANSELBCLR = 0x4000U; /* Digital Mode Enable */
+    ANSELBCLR = 0xc028U; /* Digital Mode Enable */
     /* PORTC Initialization */
     /* PORTD Initialization */
     /* PORTE Initialization */
     /* PORTF Initialization */
     /* PORTG Initialization */
-    ANSELGCLR = 0x40U; /* Digital Mode Enable */
     /* PORTH Initialization */
     /* PORTJ Initialization */
     /* PORTK Initialization */
@@ -81,10 +80,12 @@ void GPIO_Initialize ( void )
     CFGCONbits.IOLOCK = 0U;
 
     /* PPS Input Remapping */
-    U2RXR = 1;
+    SDI3R = 8;
 
     /* PPS Output Remapping */
-    RPB14R = 2;
+    RPB15R = 7;
+    RPB3R = 7;
+    RPF2R = 4;
 
         /* Lock back the system after PPS configuration */
     CFGCONbits.IOLOCK = 1U;

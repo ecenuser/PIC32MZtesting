@@ -50,11 +50,13 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include "peripheral/adchs/plib_adchs.h"
-#include "peripheral/uart/plib_uart2.h"
+#include "peripheral/spi/spi_master/plib_spi3_master.h"
 #include "peripheral/tmr/plib_tmr3.h"
 #include "peripheral/clk/plib_clk.h"
 #include "peripheral/gpio/plib_gpio.h"
 #include "peripheral/evic/plib_evic.h"
+#include "peripheral/dmac/plib_dmac.h"
+#include "peripheral/uart/plib_uart6.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility

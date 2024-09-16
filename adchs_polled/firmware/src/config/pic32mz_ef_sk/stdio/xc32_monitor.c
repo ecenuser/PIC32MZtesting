@@ -52,7 +52,7 @@ int read(int handle, void *buffer, unsigned int len)
     {
         do
         {
-            success = UART2_Read(buffer, 1);
+            success = UART6_Read(buffer, 1);
         }while( !success);
         nChars = 1;
     }
@@ -65,8 +65,8 @@ int write(int handle, void * buffer, size_t count)
    if (handle == 1)
    {
        do
-       {   
-           success = UART2_Write(buffer, count);
+       {
+           success = UART6_Write(buffer, count);
        }while( !success);
    }
    return (int)count;

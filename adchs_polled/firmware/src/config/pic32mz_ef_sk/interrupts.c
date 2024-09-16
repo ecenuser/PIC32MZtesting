@@ -66,6 +66,9 @@
 // Section: System Interrupt Vector declarations
 // *****************************************************************************
 // *****************************************************************************
+void DMA0_Handler (void);
+void SPI3_RX_Handler (void);
+void SPI3_TX_Handler (void);
 
 
 // *****************************************************************************
@@ -73,6 +76,21 @@
 // Section: System Interrupt Vector definitions
 // *****************************************************************************
 // *****************************************************************************
+void __ISR(_DMA0_VECTOR, ipl1SRS) DMA0_Handler (void)
+{
+    DMA0_InterruptHandler();
+}
+
+void __ISR(_SPI3_RX_VECTOR, ipl1SRS) SPI3_RX_Handler (void)
+{
+    SPI3_RX_InterruptHandler();
+}
+
+void __ISR(_SPI3_TX_VECTOR, ipl1SRS) SPI3_TX_Handler (void)
+{
+    SPI3_TX_InterruptHandler();
+}
+
 
 
 

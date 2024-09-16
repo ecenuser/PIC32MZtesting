@@ -58,17 +58,17 @@ void ADCHS_Initialize(void)
 {
     ADCCON1bits.ON = 0;
     ADC2CFG = DEVADC2;
-    ADC2TIME = 0x3020001U;
+    ADC2TIME = 0x3010001U;
 
 
-    ADCCON1 = 0x600000U;
-    ADCCON2 = 0x0U;
+    ADCCON1 = 0x660000U;
+    ADCCON2 = 0x20001U;
     ADCCON3 = 0x1000000U;
 
     ADCTRGMODE = 0x0U;
 
     ADCTRG1 = 0x6060000U; 
-    ADCTRG2 = 0x0U; 
+    ADCTRG2 = 0x60000U; 
     ADCTRG3 = 0x0U; 
     
     
@@ -77,7 +77,7 @@ void ADCHS_Initialize(void)
 
     ADCTRGSNS = 0x0U;
 
-    ADCIMCON1 = 0x20U;
+    ADCIMCON1 = 0x3000U;
     ADCIMCON2 = 0x0U; 
     ADCIMCON3 = 0x0U; 
     

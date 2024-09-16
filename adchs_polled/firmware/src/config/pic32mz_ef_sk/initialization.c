@@ -210,9 +210,13 @@ void SYS_Initialize ( void* data )
 
     ADCHS_Initialize();
 
-	UART2_Initialize();
+	SPI3_Initialize();
 
     TMR3_Initialize();
+
+    DMAC_Initialize();
+
+	UART6_Initialize();
 
 
 
@@ -227,6 +231,8 @@ void SYS_Initialize ( void* data )
     /* MISRAC 2012 deviation block end */
     EVIC_Initialize();
 
+	/* Enable global interrupts */
+    (void)__builtin_enable_interrupts();
 
 
 

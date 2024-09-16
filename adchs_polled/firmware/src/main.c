@@ -57,6 +57,9 @@
 
 uint16_t adc_count;
 float input_voltage;
+uint8_t adcValue[2];  
+float analogVoltage;
+uint16_t adcResult;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -68,9 +71,7 @@ int main ( void )
    
     /* Initialize all modules */
     SYS_Initialize ( NULL );
-    RPF2Rbits.RPF2R=0b0010; // HL Make U2TX available on CDC TX 0b0010 => U2TX (Table 12-3, DS60001320H p267)
-    RPG9Rbits.RPG9R=0b0010; // HL Make U2TX visible for probing on Mikro BUS 2 TX pin 0b0010 => U2TX (Table 12-3, DS60001320H p267)
- 
+
     printf("\n\r---------------------------------------------------------");
     printf("\n\r                    ADC Polled Mode Demo                 ");
     printf("\n\r---------------------------------------------------------\n\r"); 
@@ -80,19 +81,34 @@ int main ( void )
     
     TRISJbits.TRISJ7 = 0;  // Set RJ7 as output (clear bit 7)
     
-    
-
+   // uint16_t adcValue;
+    //    uint16_t txData =0x0800; //selecting in2
+     //   LATCbits.LATC2 = 1;  // Bring CS low before SPI transfer
+      //  SPI3_WriteRead(&txData, 2, &adcValue, 2);
+       // LATBbits.LATB15 = 0;  // Bring CS high after SPI transfer
+     //   adcValue = adcValue >> 4;
 
     while ( true )
     {
         /* Maintain state machines of all polled MPLAB Harmony modules. */
         SYS_Tasks ( );
+        
+        uint16_t txData =0x08; //selecting in2
+        //Cbits.LATC2 = 1;  // Bring CS low before SPI transfer
+     //   SPI3_WriteRead(&txData, 1, adcValue, 2);
+      
+        //adcResult = (adcValue >> 4);
+       // adcResult = ((adcValue[0] << 8) | adcValue[1]) >> 4;  // Shift to remove unused bits
+        
+       // analogVoltage = ((float)adcResult / 4095.0) * ADC_VREF;
+         //analogVoltage = (float)adcResult;
+     //   printf("\n\rAnalog Voltage: %.3f V\n", analogVoltage);
         if (PORTJbits.RJ4 == 0) {  // Check if SW1 is pressed (active low)
-            printf("SW1 is pressed\n");
+            printf("\n\rSW1 is pressed\n");
              LATJbits.LATJ7 = 0;  // Set RJ7 high (turn on LED1)
             
         } else {
-            printf("SW1 is not pressed\n");
+            printf("\n\rSW1 is not pressed\n");
              LATJbits.LATJ7 = 1;  // Set RJ7 high (turn on LED1)
         }
         
@@ -102,13 +118,15 @@ int main ( void )
         {
 
         };
-        while (ADCCON2bits.REFFLT != 0);  // Ensure no reference voltage fault
+       // while (ADCCON2bits.REFFLT != 0);  // Ensure no reference voltage fault
 
         /* Read the ADC result */
         int16_t adc_count = (int16_t)ADCHS_ChannelResultGet(ADCHS_CH2);
 
-       // adc_count = ADCHS_ChannelResultGet(ADCHS_CH2);
-        input_voltage = (float)adc_count * ADC_VREF / ADC_MAX_COUNT;
+        //adc_count = ADCHS_ChannelResultGet(ADCHS_CH2);
+        input_voltage = (float)adc_count * ADC_VREF / ADC_MAX_COUNT; //for single ended
+       // input_voltage = (float)adc_count * ADC_VREF / ADC_MAX_COUNT * 2;
+
 
         printf("ADC Count = 0x%03x, ADC Input Voltage = %d.%02d V \r", adc_count, (int)input_voltage, (int)((input_voltage - (int)input_voltage)*100.0));        
     }

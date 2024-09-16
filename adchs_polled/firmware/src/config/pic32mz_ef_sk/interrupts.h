@@ -57,6 +57,9 @@
 // *****************************************************************************
 // *****************************************************************************
 
+void DMA0_InterruptHandler( void );
+void SPI3_RX_InterruptHandler( void );
+void SPI3_TX_InterruptHandler( void );
 
 
 
